@@ -1,46 +1,40 @@
-import useLocalStorage from "./hooks/useLocalStorage";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
-function Form() {
-  const [formData, setFormData] = useLocalStorage("repair-form", {
-    name: "",
-    email: "",
-    issue: ""
-  });
-
-  function handleChange(e) {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  }
+function App() {
+  const [name, setName] = useLocalStorage("name", "");
+  const [email, setEmail] = useLocalStorage("email", "");
+  const [description, setDescription] = useLocalStorage("description", "");
 
   return (
-    <form>
-      <label>Name:</label>
-      <input
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        placeholder="Enter your name"
-      />
+    <div>
+      <h1>Repair Request Form</h1>
+      <form>
+        <label>Name:</label>
+        <input
+          name="name"
+          data-testid="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
-      <label>Email:</label>
-      <input
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="Enter your email"
-      />
+        <label>Email:</label>
+        <input
+          name="email"
+          data-testid="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <label>Issue:</label>
-      <textarea
-        name="issue"
-        value={formData.issue}
-        onChange={handleChange}
-        placeholder="Describe the issue"
-      />
-    </form>
+        <label>Description:</label>
+        <input
+          name="description"
+          data-testid="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </form>
+    </div>
   );
 }
 
-export default Form;
+export default App;

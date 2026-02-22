@@ -1,43 +1,48 @@
-import useLocalStorage from "./hooks/useLocalStorage";
+import { useId } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 function Form() {
+  const id = useId();
+
   const [formData, setFormData] = useLocalStorage("repair-form", {
     name: "",
     email: "",
-    issue: ""
+    description: "",
   });
 
   function handleChange(e) {
+    const { name, value } = e.target;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value,
     });
   }
 
   return (
     <form>
-      <label>Name:</label>
+      <label htmlFor={`${id}-name`}>Name:</label>
       <input
+        id={`${id}-name`}
         name="name"
         value={formData.name}
         onChange={handleChange}
-        placeholder="Enter your name"
       />
 
-      <label>Email:</label>
+      <label htmlFor={`${id}-email`}>Email:</label>
       <input
+        id={`${id}-email`}
         name="email"
         value={formData.email}
         onChange={handleChange}
-        placeholder="Enter your email"
       />
 
-      <label>Issue:</label>
-      <textarea
-        name="issue"
-        value={formData.issue}
+      <label htmlFor={`${id}-description`}>Description:</label>
+      <input
+        id={`${id}-description`}
+        name="description"
+        value={formData.description}
         onChange={handleChange}
-        placeholder="Describe the issue"
       />
     </form>
   );
